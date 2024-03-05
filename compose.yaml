@@ -1,0 +1,10 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=news-db'
+      - 'MYSQL_ROOT_PASSWORD=password'
+      - 'MYSQL_USER=mzuha'
+      - 'MYSQL_PASSWORD=mzuha'
+    ports:
+      - '3306:3306'
