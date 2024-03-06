@@ -1,14 +1,12 @@
 package com.mzuha.newsparser;
 
-import org.springframework.boot.SpringApplication;
+import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class NewsParserApplication {
-    public static String[] args;
 
     public static void main(String[] args) {
-        SpringApplication.run(NewsParserApplication.class, args);
-        NewsParserApplication.args = args;
+        Application.launch(JavaFXApplication.class, args);
     }
 }

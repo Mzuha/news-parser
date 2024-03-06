@@ -1,27 +1,28 @@
 package com.mzuha.newsparser;
 
+import com.mzuha.newsparser.event.StageReadyEvent;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.application.Platform;
 import javafx.stage.Stage;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 
 public class JavaFXApplication extends Application {
+    private ConfigurableApplicationContext applicationContext;
 
-    public static final String TITLE = "News";
-
-    public static void launchJavaFXApp(String[] args) {
-        launch(args);
+    @Override
+    public void init() {
+        applicationContext = new SpringApplicationBuilder(NewsParserApplication.class).run();
     }
 
     @Override
     public void start(Stage primaryStage) {
-        Button button = new Button("GET NEWS");
-        Group root = new Group();
-        root.getChildren().add(button);
-        Scene scene = new Scene(root, 300, 200);
-        primaryStage.setTitle(TITLE);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        applicationContext.publishEvent(new StageReadyEvent(primaryStage));
+    }
+
+    @Override
+    public void stop() {
+        applicationContext.close();
+        Platform.exit();
     }
 }

@@ -2,6 +2,7 @@ package com.mzuha.newsparser.util;
 
 import com.mzuha.newsparser.entity.ArticleEntity;
 import com.mzuha.newsparser.model.ArticlesItem;
+import java.time.ZonedDateTime;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,5 +13,17 @@ public class ArticleMapper {
         entity.setDescription(articlesItem.getDescription());
         entity.setPublicationTime(articlesItem.getPublishedAt());
         return entity;
+    }
+
+    public ArticlesItem mapToItem(ArticleEntity articleEntity) {
+        var item = new ArticlesItem();
+        item.setId(articleEntity.getId());
+        item.setTitle(articleEntity.getHeadline());
+        item.setDescription(articleEntity.getDescription());
+        item.setPublishedAt(articleEntity.getPublicationTime());
+        item.setZonedPublishedAt(
+                ZonedDateTime.parse(articleEntity.getPublicationTime())
+        );
+        return item;
     }
 }

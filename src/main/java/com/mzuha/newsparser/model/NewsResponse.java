@@ -1,8 +1,7 @@
 package com.mzuha.newsparser.model;
 
-import lombok.Data;
-
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class NewsResponse {
