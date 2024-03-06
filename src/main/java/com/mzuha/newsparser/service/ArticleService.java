@@ -8,6 +8,7 @@ import com.mzuha.newsparser.util.TimeOfDay;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,24 +30,30 @@ public class ArticleService {
     }
 
     public Optional<ArticlesItem> findFirstWithinDayFragment(TimeOfDay fragment) {
-        return articleRepository.findAll().stream()
-                .map(articleMapper::mapToItem)
-                .filter((e) -> fragment == TimeOfDay.getTimeOfDay(e.getZonedPublishedAt().toLocalTime()))
+        return getArticlesItemStream()
+                .filter((e) -> isValidDayFragment(fragment, e))
                 .findFirst();
     }
 
     public Optional<ArticlesItem> findNextWithinDayFragment(TimeOfDay fragment, Long id) {
-        return articleRepository.findAll().stream()
-                .map(articleMapper::mapToItem)
+        return getArticlesItemStream()
                 .filter((e) -> fragment == TimeOfDay.getTimeOfDay(e.getZonedPublishedAt().toLocalTime()) && e.getId() > id)
                 .findFirst();
     }
 
     public Optional<ArticlesItem> findPrevWithinDayFragment(TimeOfDay fragment, Long id) {
-        return articleRepository.findAll().stream()
-                .map(articleMapper::mapToItem)
-                .filter((e) -> fragment == TimeOfDay.getTimeOfDay(e.getZonedPublishedAt().toLocalTime()) && e.getId() < id)
+        return getArticlesItemStream()
+                .filter((e) -> isValidDayFragment(fragment, e) && e.getId() < id)
                 .findFirst();
+    }
+
+    private static boolean isValidDayFragment(TimeOfDay fragment, ArticlesItem e) {
+        return fragment == TimeOfDay.getTimeOfDay(e.getZonedPublishedAt().toLocalTime());
+    }
+
+    private Stream<ArticlesItem> getArticlesItemStream() {
+        return articleRepository.findAll().stream()
+            .map(articleMapper::mapToItem);
     }
 
     public void save(ArticleEntity articleEntity) {
