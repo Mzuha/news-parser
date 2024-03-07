@@ -34,6 +34,6 @@
     </VBox.margin>
   </HBox>
   <Text strokeType="OUTSIDE" strokeWidth="0.0" fx:id="title"/>
-  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Click next to see news!" fx:id="description"/>
+  <Text strokeType="OUTSIDE" strokeWidth="0.0" fx:id="description"/>
   <Text strokeType="OUTSIDE" strokeWidth="0.0" fx:id="publishedAt"/>
 </VBox>
