@@ -6,7 +6,6 @@ import com.mzuha.newsparser.model.ArticlesItem;
 import com.mzuha.newsparser.service.ArticleService;
 import com.mzuha.newsparser.service.ScheduledTasks;
 import com.mzuha.newsparser.util.TimeOfDay;
-import java.time.ZonedDateTime;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,7 +61,6 @@ public class NewsController {
                 );
             }
         }
-        System.out.println(TimeOfDay.getTimeOfDay(ZonedDateTime.parse(publishedAt.getText().substring(14)).toLocalTime()));
     }
 
     @FXML
@@ -82,7 +80,6 @@ public class NewsController {
                 );
             }
         }
-        System.out.println(TimeOfDay.getTimeOfDay(ZonedDateTime.parse(publishedAt.getText().substring(14)).toLocalTime()));
     }
 
     @FXML
