@@ -1,5 +1,7 @@
 package com.mzuha.newsparser.entity;
 
+import static io.netty.util.internal.StringUtil.EMPTY_STRING;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,12 +22,12 @@ public class ArticleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String headline;
+    private String headline = EMPTY_STRING;
 
     @Column(length = 3000)
-    private String description;
+    private String description = EMPTY_STRING;
 
-    private String publicationTime;
+    private String publicationTime = EMPTY_STRING;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -21,9 +21,11 @@ public class ArticleMapper {
         item.setTitle(articleEntity.getHeadline());
         item.setDescription(articleEntity.getDescription());
         item.setPublishedAt(articleEntity.getPublicationTime());
-        item.setZonedPublishedAt(
-                ZonedDateTime.parse(articleEntity.getPublicationTime())
-        );
+        if (!articleEntity.getPublicationTime().isEmpty()) {
+            item.setZonedPublishedAt(
+                    ZonedDateTime.parse(articleEntity.getPublicationTime())
+            );
+        }
         return item;
     }
 }

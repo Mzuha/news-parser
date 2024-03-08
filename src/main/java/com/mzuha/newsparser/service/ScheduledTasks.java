@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mzuha.newsparser.entity.ArticleEntity;
 import com.mzuha.newsparser.model.NewsResponse;
 import com.mzuha.newsparser.util.ArticleMapper;
+import java.util.Collections;
 import java.util.Optional;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,9 @@ public class ScheduledTasks {
         try {
             return objectMapper.readValue(response, NewsResponse.class);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to parse response!");
+            NewsResponse emptyResponse = new NewsResponse();
+            emptyResponse.setArticles(Collections.emptyList());
+            return emptyResponse;
         }
     }
 }
